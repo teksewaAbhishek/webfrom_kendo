@@ -15,9 +15,16 @@
 
     <form id="form1" runat="server">
         <telerik:RadScriptManager runat="server" ID="RadScriptManager1"></telerik:RadScriptManager>
+            <!-- Search Bar -->
+    <div>
+       <asp:TextBox ID="txtSearch" runat="server" placeholder="Search..."></asp:TextBox>
+        <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
+    </div>
+
+    <!-- RadGrid -->
         <div>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:db %>"
-                SelectCommand="SELECT * FROM [tbl_doctor]">
+                SelectCommand="SELECT d_id as ID, d_name as Name,d_contact as Contact, d_email as Email, d_dateofbirth as DOB FROM [tbl_doctor]">
             </asp:SqlDataSource>
 
          <telerik:RadGrid ID="RadGrid2" runat="server" AllowPaging="true"  AllowSorting="True" PageSize="10"
@@ -25,8 +32,9 @@
     DataKeyNames="d_id">
  
 
-                <MasterTableView DataKeyNames="d_id">
+                <MasterTableView DataKeyNames="ID">
                     <Columns>
+                      
                         <telerik:GridTemplateColumn HeaderText="Actions">
                             <ItemTemplate>
                                 <telerik:RadButton ID="btnEdit" runat="server" CssClass="btn btn-primary" Text="Edit" CommandName="Edit" />

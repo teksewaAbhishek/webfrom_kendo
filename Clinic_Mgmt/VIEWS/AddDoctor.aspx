@@ -15,6 +15,7 @@
   
     <form id="form1" runat="server">
         <telerik:RadScriptManager runat="server" ID="RadScriptManager1"></telerik:RadScriptManager>
+         
         
         <table class="auto-style1">
             <tr>
@@ -51,6 +52,7 @@
                 </td>
             </tr>
         </table>
+      
     </form>
 </body>
 </html>

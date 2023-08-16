@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -41,6 +43,7 @@ namespace Clinic_Mgmt.VIEWS
                     // Response.Write(dob.SelectedDate.ToShortDateString());
                 }*/
 
+        
         protected void Button1_Click(object sender, EventArgs e)
         {
             Doctor d = new Doctor();

@@ -11,18 +11,35 @@ namespace Clinic_Mgmt.VIEWS
 {
     public partial class getdoctors : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BindRadGrid();
             }
+         
         }
 
         protected void BindRadGrid()
         {
             doctorbusinesslogiclayer obj = new doctorbusinesslogiclayer();
             //RadGrid2.DataSource = obj.getdata();
+            RadGrid2.DataBind();
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchTerm = txtSearch.Text.Trim();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                SqlDataSource1.SelectCommand = "SELECT * FROM [tbl_doctor] WHERE [d_name] LIKE '%" + searchTerm + "%' OR [d_contact] LIKE '%" + searchTerm + "%' OR [d_email] LIKE '%" + searchTerm + "%'";
+            }
+            else
+            {
+                SqlDataSource1.SelectCommand = "SELECT * FROM [tbl_doctor]";
+            }
+
             RadGrid2.DataBind();
         }
 
