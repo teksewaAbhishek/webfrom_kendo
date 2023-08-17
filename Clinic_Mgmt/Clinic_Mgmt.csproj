@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="MODEL\Doctor.cs" />
     <Compile Include="MODEL\doctorbusinesslogiclayer.cs" />
+    <Compile Include="MODEL\DoctorMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VIEWS\AddDoctor.aspx.cs">
       <DependentUpon>AddDoctor.aspx</DependentUpon>

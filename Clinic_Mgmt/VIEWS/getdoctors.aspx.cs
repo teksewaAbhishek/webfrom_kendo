@@ -11,14 +11,18 @@ namespace Clinic_Mgmt.VIEWS
 {
     public partial class getdoctors : System.Web.UI.Page
     {
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                BindRadGrid();
+
+                // If columns are defined, bind the data to the grid
+                RadGrid2.DataBind();
             }
-         
+                
+              
+
         }
 
         protected void BindRadGrid()
@@ -28,39 +32,46 @@ namespace Clinic_Mgmt.VIEWS
             RadGrid2.DataBind();
         }
 
+        
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchTerm = txtSearch.Text.Trim();
+
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                SqlDataSource1.SelectCommand = "SELECT * FROM [tbl_doctor] WHERE [d_name] LIKE '%" + searchTerm + "%' OR [d_contact] LIKE '%" + searchTerm + "%' OR [d_email] LIKE '%" + searchTerm + "%'";
+                SqlDataSource1.SelectCommand = "SELECT d_id as ID, d_name as Name, d_contact as Contact, d_email as Email, d_dateofbirth as DOB FROM [tbl_doctor] WHERE [d_name] LIKE '%" + searchTerm + "%' OR [d_contact] LIKE '%" + searchTerm + "%' OR [d_email] LIKE '%" + searchTerm + "%'";
             }
             else
             {
-                SqlDataSource1.SelectCommand = "SELECT * FROM [tbl_doctor]";
+     
+                SqlDataSource1.SelectCommand = "SELECT d_id as ID, d_name as Name, d_contact as Contact, d_email as Email, d_dateofbirth as DOB FROM [tbl_doctor]";
+         
             }
 
-            RadGrid2.DataBind();
+            RadGrid2.Rebind();
         }
+
+
 
 
         protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
         {
             if (e.CommandName == "Edit")
             {
-                int doctorId = Convert.ToInt32((e.Item as GridEditableItem).GetDataKeyValue("d_id"));
+                int doctorId = Convert.ToInt32((e.Item as GridEditableItem).GetDataKeyValue("ID"));
                 Response.Redirect("update.aspx?id=" + doctorId);
             }
             else if (e.CommandName == "Delete")
             {
-                int doctorId = Convert.ToInt32((e.Item as GridDataItem).GetDataKeyValue("d_id"));
+                int doctorId = Convert.ToInt32((e.Item as GridDataItem).GetDataKeyValue("ID"));
 
                 doctorbusinesslogiclayer obj = new doctorbusinesslogiclayer();
                 obj.Delete(doctorId);
 
                 RadGrid2.Rebind();
             }
-           
+
         }
 
         protected void RadGrid2_ItemEdit(object sender, GridCommandEventArgs e)
